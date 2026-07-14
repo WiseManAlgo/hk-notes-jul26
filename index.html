@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖繩8天7夜自駕行程</title>
+<meta name="color-scheme" content="light dark">
+<style>
+:root{
+  --bg:#FAF6F0; --surface:#FFFFFF; --surface-2:#F3ECE1;
+  --ink:#26211C; --ink-soft:#6B6255; --ink-faint:#948A7A;
+  --accent:#C1502E; --accent-ink:#FFFFFF;
+  --accent-2:#1F6F6B;
+  --line:#E8E0D3;
+  --warn:#B8860B;
+  --shadow: 0 1px 2px rgba(38,33,28,0.06), 0 4px 14px rgba(38,33,28,0.05);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#1C1815; --surface:#241F1A; --surface-2:#2C251F;
+    --ink:#F2EDE3; --ink-soft:#B8AD9C; --ink-faint:#8A8074;
+    --accent:#E2764F; --accent-ink:#1C1815;
+    --accent-2:#5AC7BC;
+    --line:#3A322A;
+    --warn:#E0B84A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 18px rgba(0,0,0,0.35);
+  }
+}
+*{box-sizing:border-box;}
+html,body{margin:0; padding:0;}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px; margin:0 auto; padding:0 16px 64px;}
+.hero{
+  padding:28px 16px 20px; text-align:left;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg, var(--surface-2), var(--bg));
+}
+.hero-inner{max-width:760px; margin:0 auto;}
+.eyebrow{
+  font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--accent-2); font-weight:700; margin:0 0 6px;
+}
+.hero h1{
+  font-family:ui-rounded,-apple-system,"PingFang TC","Noto Sans TC",sans-serif;
+  font-size:clamp(26px,6vw,34px); font-weight:800; margin:0 0 8px; text-wrap:balance;
+  letter-spacing:-0.01em;
+}
+.hero p{margin:0; color:var(--ink-soft); font-size:14.5px;}
+.flight-strip{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;}
+.flight-chip{
+  flex:1 1 220px; background:var(--surface); border:1px solid var(--line);
+  border-radius:12px; padding:10px 14px; box-shadow:var(--shadow);
+}
+.flight-chip .dir{font-size:11.5px; color:var(--accent); font-weight:700; letter-spacing:.06em;}
+.flight-chip .route{font-weight:700; font-size:15px; margin-top:2px;}
+.flight-chip .time{font-variant-numeric:tabular-nums; color:var(--ink-soft); font-size:13px; margin-top:2px;}
+.daynav{
+  position:sticky; top:0; z-index:20; background:var(--bg);
+  border-bottom:1px solid var(--line); padding:10px 0;
+  backdrop-filter:blur(6px);
+}
+.daynav-scroll{
+  display:flex; gap:8px; overflow-x:auto; max-width:760px; margin:0 auto;
+  padding:0 16px; scrollbar-width:none;
+}
+.daynav-scroll::-webkit-scrollbar{display:none;}
+.daynav a{
+  flex:0 0 auto; text-decoration:none; color:var(--ink-soft);
+  background:var(--surface); border:1px solid var(--line); border-radius:999px;
+  padding:6px 13px; font-size:13px; font-weight:600; white-space:nowrap;
+}
+.daynav a:focus-visible, .daynav a:hover{color:var(--accent); border-color:var(--accent);}
+.stayrow{display:grid; grid-template-columns:1fr; gap:8px; margin:20px 0 28px;}
+.staycard{
+  display:flex; align-items:center; gap:12px;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:10px 14px; box-shadow:var(--shadow);
+}
+.staycard .nights{
+  font-family:ui-rounded,-apple-system,sans-serif; font-weight:800; font-size:13px;
+  color:var(--accent-ink); background:var(--accent); border-radius:8px;
+  padding:4px 9px; flex-shrink:0; font-variant-numeric:tabular-nums;
+}
+.staycard .info b{display:block; font-size:14.5px;}
+.staycard .info span{font-size:12.5px; color:var(--ink-soft);}
+.day{ padding-top:28px; scroll-margin-top:64px; }
+.day + .day{border-top:1px solid var(--line);}
+.day-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+.day-badge{
+  font-family:ui-rounded,-apple-system,sans-serif; font-weight:800; font-size:14px;
+  color:var(--accent-ink); background:var(--accent); border-radius:8px;
+  padding:3px 10px; letter-spacing:.02em;
+}
+.day-date{font-size:13.5px; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+.day h2{
+  font-family:ui-rounded,-apple-system,"PingFang TC","Noto Sans TC",sans-serif;
+  font-size:21px; font-weight:800; margin:8px 0 4px; text-wrap:balance; letter-spacing:-.01em;
+}
+.staybanner{
+  display:inline-flex; align-items:center; gap:6px; margin:4px 0 16px;
+  font-size:13.5px; color:var(--accent-2); font-weight:600;
+}
+.timeline{position:relative; margin:0 0 18px; padding-left:0;}
+.tl-row{
+  display:grid; grid-template-columns:64px 1fr; gap:12px;
+  position:relative; padding:9px 0;
+}
+.tl-row:not(:last-child)::after{
+  content:""; position:absolute; left:31px; top:36px; bottom:-9px; width:1px;
+  background:var(--line);
+}
+.tl-time{
+  font-variant-numeric:tabular-nums; font-weight:700; font-size:12.5px;
+  color:var(--accent-2); padding-top:2px; position:relative;
+}
+.tl-time::before{
+  content:""; position:absolute; left:60px; top:6px; width:7px; height:7px;
+  border-radius:50%; background:var(--accent-2);
+}
+.tl-content{font-size:14.5px;}
+.tl-content .tag{
+  display:inline-block; font-size:11px; font-weight:700; letter-spacing:.03em;
+  color:var(--ink-faint); text-transform:uppercase; margin-bottom:1px;
+}
+.tl-content .note{display:block; font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+.contacts{display:grid; grid-template-columns:1fr; gap:8px; margin:14px 0 18px;}
+.ccard{
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:11px 14px; box-shadow:var(--shadow);
+}
+.ccard .cname{font-weight:700; font-size:14px; margin-bottom:5px;}
+.clinks{display:flex; flex-direction:column; gap:5px;}
+.clinks a, .clinks span.static{
+  color:var(--ink-soft); text-decoration:none; font-size:13px;
+  display:flex; gap:7px; align-items:flex-start;
+}
+.clinks a:hover, .clinks a:focus-visible{color:var(--accent-2);}
+.clinks .ic{flex-shrink:0; width:16px; text-align:center;}
+.note-block{
+  background:var(--surface-2); border-left:3px solid var(--accent);
+  border-radius:0 10px 10px 0; padding:11px 14px; margin:14px 0;
+  font-size:13.5px; color:var(--ink-soft);
+}
+.note-block b{color:var(--ink);}
+.note-block.safe{border-left-color:var(--accent-2);}
+.note-block.warn{border-left-color:var(--warn);}
+h3.subhead{
+  font-size:13.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+  color:var(--ink-faint); margin:18px 0 8px;
+}
+.datatable{width:100%; overflow-x:auto; margin:10px 0;}
+table{border-collapse:collapse; width:100%; font-size:13px;}
+table th, table td{
+  text-align:left; padding:6px 10px; border-bottom:1px solid var(--line);
+  font-variant-numeric:tabular-nums;
+}
+table th{color:var(--ink-faint); font-weight:700; font-size:11.5px; text-transform:uppercase; letter-spacing:.03em;}
+ul.plain{margin:8px 0; padding-left:18px; font-size:13.5px; color:var(--ink-soft);}
+ul.plain li{margin:4px 0;}
+ul.plain b{color:var(--ink);}
+.foot{text-align:center; padding:32px 16px 12px; color:var(--ink-faint); font-size:12.5px;}
+a{color:inherit;}
+.gate{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:24px; text-align:center;
+}
+.gate-box{max-width:320px; width:100%;}
+.gate-box h2{font-size:19px; font-weight:800; margin:0 0 8px;}
+.gate-box p{font-size:13.5px; color:var(--ink-soft); margin:0 0 16px;}
+.gate-box input{
+  width:100%; padding:12px 14px; font-size:16px; border-radius:10px;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink);
+  margin-bottom:10px; text-align:center;
+}
+.gate-box button{
+  width:100%; padding:12px 14px; font-size:15px; font-weight:700; border-radius:10px;
+  border:none; background:var(--accent); color:var(--accent-ink); cursor:pointer;
+}
+.gate-err{color:var(--accent); font-size:13px; margin-top:8px; min-height:18px;}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+  <div class="gate-box">
+    <h2>🔒 行程僅限受邀查看</h2>
+    <p>請輸入密碼查看沖繩行程</p>
+    <input type="password" id="gate-pw" placeholder="密碼" autocomplete="off">
+    <button onclick="checkGatePw()">查看行程</button>
+    <div class="gate-err" id="gate-err"></div>
+  </div>
+</div>
+
+<div id="real-content" style="display:none;">
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Okinawa Road Trip · 2026</p>
+    <h1>沖繩8天7夜自駕行程</h1>
+    <p>7/29（三）— 8/5（三）· 夫妻兩人 · 完整定案版，含地址/電話/官網</p>
+    <div class="flight-strip">
+      <div class="flight-chip">
+        <div class="dir">去程</div>
+        <div class="route">HKG → OKA · UO0824</div>
+        <div class="time">7/29（三）15:50 → 19:30</div>
+      </div>
+      <div class="flight-chip">
+        <div class="dir">回程</div>
+        <div class="route">OKA → HKG · UO0843</div>
+        <div class="time">8/5（三）11:35 → 13:20</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="daynav">
+  <div class="daynav-scroll">
+    <a href="#day1">Day1 那霸</a>
+    <a href="#day2">Day2 名護</a>
+    <a href="#day3">Day3 北部→中部</a>
+    <a href="#day4">Day4 中部</a>
+    <a href="#day5">Day5 海灘</a>
+    <a href="#day6">Day6 南部</a>
+    <a href="#day7">Day7 收尾</a>
+    <a href="#day8">Day8 返港</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <h3 class="subhead" style="margin-top:24px;">住宿總覽（已全部訂房）</h3>
+  <div class="stayrow">
+    <div class="staycard">
+      <div class="nights">1晚</div>
+      <div class="info"><b>大和ROYNET酒店（那霸國際通）</b><span>牧志站步行1分鐘 · Day1</span></div>
+    </div>
+    <div class="staycard">
+      <div class="nights">1晚</div>
+      <div class="info"><b>Phoenix Park Hotel 凤凰公园酒店</b><span>名護市宮里 · 免費停車 · Day2</span></div>
+    </div>
+    <div class="staycard">
+      <div class="nights">2晚</div>
+      <div class="info"><b>Seaside Hotel The Beach</b><span>北谷町宮城 · ⚠️18個車位，免費有限，額滿¥1,000/天 · Day3-4</span></div>
+    </div>
+    <div class="staycard">
+      <div class="nights">3晚</div>
+      <div class="info"><b>Hotel Monterey La Soeur Naha</b><span>縣廳前站步行2分鐘，國際通門口 · ¥1,500/晚停車，限高198.5cm · Day5-7</span></div>
+    </div>
+  </div>
+
+  <!-- ============ DAY 1 ============ -->
+  <section class="day" id="day1">
+    <div class="day-head">
+      <span class="day-badge">DAY 1</span>
+      <span class="day-date">7/29（三）</span>
+    </div>
+    <h2>抵達沖繩・那霸市區・不取車</h2>
+    <div class="staybanner">🏨 大和ROYNET酒店（牧志站步行1分鐘）· 1晚</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">15:50</div><div class="tl-content">HKG起飛（UO0824）</div></div>
+      <div class="tl-row"><div class="tl-time">19:30</div><div class="tl-content">抵達那霸機場，入境領行李<span class="note">當天不取車，避免延誤或夜間陌生取車風險</span></div></div>
+      <div class="tl-row"><div class="tl-time">20:00</div><div class="tl-content">單軌電車到牧志站（13-15分鐘，信用卡感應付款），天橋直通酒店1分鐘</div></div>
+      <div class="tl-row"><div class="tl-time">20:30</div><div class="tl-content">Check-in、稍作休息</div></div>
+      <div class="tl-row"><div class="tl-time">21:00</div><div class="tl-content"><span class="tag">宵夜</span>國際通屋台村（步行3-4分鐘）</div></div>
+    </div>
+
+    <div class="note-block">單軌電車不是隨上隨落，是閘門系統（像MTR）。<b>直接用感應式信用卡進出閘</b>即可，不用買票，一天封頂¥800。</div>
+
+    <h3 class="subhead">聯絡資訊</h3>
+    <div class="contacts">
+      <div class="ccard">
+        <div class="cname">大和ROYNET酒店</div>
+        <div class="clinks">
+          <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E9%82%A3%E8%A6%87%E5%B8%82%E5%AE%89%E9%87%8C2-1-1"><span class="ic">📍</span>〒902-0067 沖縄県那覇市安里2-1-1</a>
+          <a href="tel:+81988689055"><span class="ic">☎</span>098-868-9055</a>
+          <a href="https://www.daiwaroynet.jp/ct/naha-kokusaidori/"><span class="ic">🌐</span>daiwaroynet.jp</a>
+        </div>
+      </div>
+      <div class="ccard">
+        <div class="cname">國際通屋台村</div>
+        <div class="clinks">
+          <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E9%82%A3%E8%A6%87%E5%B8%82%E7%89%A7%E5%BF%973-11-17"><span class="ic">📍</span>〒900-0013 沖縄県那覇市牧志3-11-17</a>
+          <a href="tel:+81988632755"><span class="ic">☎</span>098-863-2755</a>
+          <a href="https://kokusaidoori-yataimura.okinawa/"><span class="ic">🌐</span>kokusaidoori-yataimura.okinawa</a>
+        </div>
+      </div>
+      <div class="ccard">
+        <div class="cname">Akamine Station Rent a Car（Day2取車）</div>
+        <div class="clinks">
+          <a href="https://www.google.com/maps/search/?api=1&query=3-34-407+Uebaru+Naha+Okinawa+901-0153"><span class="ic">📍</span>3-chōme-34-407番地 Uebaru, Naha 901-0153</a>
+          <a href="tel:+818020783280"><span class="ic">☎</span>+81-8020783280（WeChat/Line/WhatsApp同號）</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 2 ============ -->
+  <section class="day" id="day2">
+    <div class="day-head">
+      <span class="day-badge">DAY 2</span>
+      <span class="day-date">7/30（四）</span>
+    </div>
+    <h2>早上取車 → 名護 → 古宇利島（提前處理）</h2>
+    <div class="staybanner">🏨 Phoenix Park Hotel 凤凰公园酒店 · 免費停車 · 1晚</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">07:30</div><div class="tl-content">那霸酒店早餐、退房</div></div>
+      <div class="tl-row"><div class="tl-time">08:30</div><div class="tl-content">單軌到赤嶺站，步行300米至租車行取車</div></div>
+      <div class="tl-row"><div class="tl-time">09:45</div><div class="tl-content">開車北上名護（約1小時45分）</div></div>
+      <div class="tl-row"><div class="tl-time">11:45</div><div class="tl-content"><span class="tag">午餐</span>丸沖商店<span class="note">只能現場候位，出發前務必電話確認午市</span></div></div>
+      <div class="tl-row"><div class="tl-time">13:30</div><div class="tl-content">名護鳳梨園（電動遊園車、鳳梨霜淇淋）</div></div>
+      <div class="tl-row"><div class="tl-time">15:20</div><div class="tl-content">古宇利大橋 → 海洋塔 → 心形岩，一次打包</div></div>
+      <div class="tl-row"><div class="tl-time">18:30</div><div class="tl-content"><span class="tag">晚餐</span>名護漁港水產物直販所</div></div>
+    </div>
+
+    <h3 class="subhead">為什麼古宇利島提前到今天（Google Maps實測）</h3>
+    <div class="datatable"><table>
+      <tr><th>路段</th><th>距離</th><th>時間</th></tr>
+      <tr><td>名護鳳梨園 → 古宇利大橋</td><td>14.0 km</td><td>22分</td></tr>
+      <tr><td>名護鳳梨園 → 燒肉本部牧場</td><td>11.1 km</td><td>18分</td></tr>
+      <tr><td>名護鳳梨園 → 備瀨福木林道</td><td>16.7 km</td><td>29分</td></tr>
+    </table></div>
+    <p style="font-size:13.5px;color:var(--ink-soft);">古宇利、備瀨、本部牧場彼此只距11-17km，是同一北部群組，跟鳳梨園也很近。Day2一路向北，Day3再處理備瀨+本部牧場+萬座毛南下中部，全程不折返。</p>
+
+    <h3 class="subhead">聯絡資訊</h3>
+    <div class="contacts">
+      <div class="ccard"><div class="cname">Phoenix Park Hotel 凤凰公园酒店</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%90%8D%E8%AD%B7%E5%B8%82%E5%AE%AE%E9%87%8C3-29-12"><span class="ic">📍</span>〒905-0011 沖縄県名護市宮里3-29-12</a>
+        <a href="https://phoenixparkhotel.jp"><span class="ic">🌐</span>phoenixparkhotel.jp</a>
+      </div></div>
+      <div class="ccard"><div class="cname">丸沖商店（午餐首選）</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%90%8D%E8%AD%B7%E5%B8%82%E5%B9%B8%E5%96%9C1398-1"><span class="ic">📍</span>沖縄県名護市幸喜1398-1</a>
+        <a href="tel:+81980531323"><span class="ic">☎</span>0980-53-1323</a>
+        <a href="https://maruokishouten.gorp.jp/"><span class="ic">🌐</span>maruokishouten.gorp.jp</a>
+      </div></div>
+      <div class="ccard"><div class="cname">AEON名護店（午餐備案）</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%90%8D%E8%AD%B7%E5%B8%82%E5%AD%97%E5%90%8D%E8%AD%B7%E8%A6%8B%E5%8F%96%E5%B7%9D%E5%8E%9F4472"><span class="ic">📍</span>沖縄県名護市字名護見取川原4472</a>
+        <a href="tel:+81980548000"><span class="ic">☎</span>0980-54-8000</a>
+      </div></div>
+      <div class="ccard"><div class="cname">名護鳳梨園</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%90%8D%E8%AD%B7%E5%B8%82%E7%82%BA%E5%8F%881195"><span class="ic">📍</span>沖縄県名護市為又1195</a>
+        <a href="tel:+81980533659"><span class="ic">☎</span>0980-53-3659</a>
+        <a href="https://www.nagopine.com"><span class="ic">🌐</span>nagopine.com</a>
+      </div></div>
+      <div class="ccard"><div class="cname">古宇利オーシャンタワー</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E4%BB%8A%E5%B8%B0%E4%BB%81%E6%9D%91%E5%8F%A4%E5%AE%87%E5%88%A9538"><span class="ic">📍</span>沖縄県国頭郡今帰仁村古宇利538</a>
+        <a href="tel:+81980561616"><span class="ic">☎</span>0980-56-1616</a>
+        <a href="https://www.kouri-oceantower.com/"><span class="ic">🌐</span>kouri-oceantower.com</a>
+      </div></div>
+      <div class="ccard"><div class="cname">名護漁港水産物直販所</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%90%8D%E8%AD%B7%E5%B8%82%E5%9F%8E3-5-16"><span class="ic">📍</span>〒905-0013 沖縄県名護市城3丁目5-16</a>
+        <a href="tel:+81980430175"><span class="ic">☎</span>0980-43-0175</a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 3 ============ -->
+  <section class="day" id="day3">
+    <div class="day-head">
+      <span class="day-badge">DAY 3</span>
+      <span class="day-date">7/31（五）</span>
+    </div>
+    <h2>備瀨福木林道 → 本部牛燒肉（午餐）→ 那比海灘 → 萬座毛日落 → 南下中部</h2>
+    <div class="staybanner">🏨 Seaside Hotel The Beach · 第1晚，共2晚</div>
+
+    <div class="note-block warn">⚠️ 停車非全免費：18個車位，免費車位有限，額滿需付¥1,000/天（兩晚最多¥2,000）。房價約每晚500多人民幣，仍比原方案（Lequ Okinawa Chatan）划算1000+人民幣/晚。<b>入住時建議跟櫃檯確認當天車位狀況</b>（電話098-926-2674）。</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">09:00</div><div class="tl-content">備瀨福木林道（租雙人腳踏車綠蔭漫步）</div></div>
+      <div class="tl-row"><div class="tl-time">11:00</div><div class="tl-content"><span class="tag">午餐</span>燒肉本部牧場（改午餐）<span class="note">需提前預約，確認午市時段</span></div></div>
+      <div class="tl-row"><div class="tl-time">12:30</div><div class="tl-content">開車到那比海灘（約53分鐘）</div></div>
+      <div class="tl-row"><div class="tl-time">13:30</div><div class="tl-content">🏖️ 那比海灘放鬆戲水（7-8月開放至19:00，200個車位）</div></div>
+      <div class="tl-row"><div class="tl-time">15:50</div><div class="tl-content">開車到萬座毛（僅4分鐘）</div></div>
+      <div class="tl-row"><div class="tl-time">16:00</div><div class="tl-content">萬座毛（西向日落）</div></div>
+      <div class="tl-row"><div class="tl-time">17:30</div><div class="tl-content">南下中部Check-in（約35分鐘）</div></div>
+      <div class="tl-row"><div class="tl-time">19:00</div><div class="tl-content"><span class="tag">晚餐</span>中部覓食</div></div>
+    </div>
+
+    <h3 class="subhead">路線實測（那比海灘幾乎是萬座毛的門口）</h3>
+    <div class="datatable"><table>
+      <tr><th>路段</th><th>距離</th><th>時間</th></tr>
+      <tr><td>燒肉本部牧場 → 那比海灘</td><td>39.2 km</td><td>53分</td></tr>
+      <tr><td><b>那比海灘 → 萬座毛</b></td><td><b>1.4 km</b></td><td><b>4分</b></td></tr>
+      <tr><td>對照：本部牧場直接到萬座毛</td><td>40.1 km</td><td>55分</td></tr>
+      <tr><td>萬座毛 → Seaside Hotel The Beach</td><td>28.9 km</td><td>36分</td></tr>
+    </table></div>
+
+    <div class="note-block safe">✅ <b>安全協議已取消</b> — 燒肉本部牧場改午餐後，晚上不再有配酒+長途夜間開車，兩人都能正常吃喝。</div>
+
+    <h3 class="subhead">聯絡資訊</h3>
+    <div class="contacts">
+      <div class="ccard"><div class="cname">燒肉もとぶ牧場 もとぶ店</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E6%9C%AC%E9%83%A8%E7%94%BA%E5%A4%A7%E6%B5%9C881-1"><span class="ic">📍</span>沖縄県国頭郡本部町大浜881-1</a>
+        <a href="tel:+81980516777"><span class="ic">☎</span>0980-51-6777</a>
+        <a href="https://motobu-farm.com/"><span class="ic">🌐</span>motobu-farm.com</a>
+      </div></div>
+      <div class="ccard"><div class="cname">那比海灘</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E6%81%A9%E7%B4%8D%E6%9D%91%E6%81%A9%E7%B4%8D419-4"><span class="ic">📍</span>沖縄県国頭郡恩納村恩納419-4</a>
+      </div></div>
+      <div class="ccard"><div class="cname">萬座毛</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E6%81%A9%E7%B4%8D%E6%9D%912767"><span class="ic">📍</span>〒904-0411 沖縄県恩納村字恩納2767</a>
+        <a href="tel:+81989668080"><span class="ic">☎</span>098-966-8080</a>
+        <a href="https://www.manzamo.jp/"><span class="ic">🌐</span>manzamo.jp</a>
+      </div></div>
+      <div class="ccard"><div class="cname">Seaside Hotel The Beach</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%8C%97%E8%B0%B7%E7%94%BA%E5%AE%AE%E5%9F%8E3-134"><span class="ic">📍</span>沖縄県中頭郡北谷町宮城3-134</a>
+        <a href="tel:+81989262674"><span class="ic">☎</span>098-926-2674</a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 4 ============ -->
+  <section class="day" id="day4">
+    <div class="day-head">
+      <span class="day-badge">DAY 4</span>
+      <span class="day-date">8/01（六）</span>
+    </div>
+    <h2>殘波岬 → BANTA CAFE → 太太琉裝拍照 → 美國村</h2>
+    <div class="staybanner">🏨 Seaside Hotel The Beach（同一家）· 第2晚</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">10:00</div><div class="tl-content">殘波岬（燈塔99階+展望台+殘波大獅子+遊步道，90分鐘）</div></div>
+      <div class="tl-row"><div class="tl-time">11:45</div><div class="tl-content"><span class="tag">午餐</span>星野集團 BANTA CAFE<span class="note">殘波岬車程僅6分鐘</span></div></div>
+      <div class="tl-row"><div class="tl-time">14:30</div><div class="tl-content">📸 むら咲むら 太太琉裝拍照（午後光線最柔和）</div></div>
+      <div class="tl-row"><div class="tl-time">17:30</div><div class="tl-content">美國村 Depot Island 看日落，<span class="tag">晚餐</span>琉球之牛（石垣牛）</div></div>
+    </div>
+
+    <h3 class="subhead">殘波岬玩法（不只燈塔）</h3>
+    <ul class="plain">
+      <li><b>燈塔</b>：99階，門票¥300，360度俯瞰斷崖海景</li>
+      <li><b>展望台</b>：燈塔旁走幾分鐘，免費</li>
+      <li><b>殘波大獅子</b>：日本最大風獅爺像（高8.75m）</li>
+      <li><b>遊步道</b>：沿斷崖平坦步道，海側有欄杆</li>
+    </ul>
+
+    <h3 class="subhead">午餐備選</h3>
+    <ul class="plain">
+      <li><b>日本料理・琉球料理 佐和</b>（日航Alivila酒店內）── 會席料理，招牌島豚涮涮鍋會席，需預約</li>
+      <li><b>ぶたや黒将</b>（讀谷村座喜味1893）── 阿古豬涮涮鍋/天婦羅</li>
+      <li><b>Ocean's PIZZA</b> ── 海景披薩，人均¥3,000-4,000，建議先訂位</li>
+    </ul>
+
+    <h3 class="subhead">聯絡資訊</h3>
+    <div class="contacts">
+      <div class="ccard"><div class="cname">殘波岬燈塔</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E8%AE%80%E8%B0%B7%E6%9D%91%E5%AE%87%E5%BA%A71861"><span class="ic">📍</span>〒904-0328 沖縄県読谷村宇座1861</a>
+        <a href="tel:+81989583041"><span class="ic">☎</span>098-958-3041</a>
+      </div></div>
+      <div class="ccard"><div class="cname">BANTA CAFE by 星野リゾート</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E8%AE%80%E8%B0%B7%E6%9D%91%E5%84%80%E9%96%93560"><span class="ic">📍</span>〒904-0327 沖縄県読谷村儀間560</a>
+        <a href="tel:+81989216810"><span class="ic">☎</span>098-921-6810</a>
+        <a href="https://banta-cafe.com/"><span class="ic">🌐</span>banta-cafe.com</a>
+      </div></div>
+      <div class="ccard"><div class="cname">体験王国むら咲むら</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E8%AE%80%E8%B0%B7%E6%9D%91%E9%AB%98%E5%BF%97%E4%BF%9D1020-1"><span class="ic">📍</span>沖縄県読谷村高志保1020-1</a>
+        <a href="https://murasakimura.com/"><span class="ic">🌐</span>murasakimura.com</a>
+      </div></div>
+      <div class="ccard"><div class="cname">琉球の牛 美国村店</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%8C%97%E8%B0%B7%E7%94%BA%E7%BE%8E%E6%B5%9C51-1"><span class="ic">📍</span>沖縄県北谷町美浜51-1 3F</a>
+        <a href="tel:+81989231525"><span class="ic">☎</span>098-923-1525</a>
+        <a href="https://www.u-shi.net/chatan_ch.html"><span class="ic">🌐</span>u-shi.net</a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 5 ============ -->
+  <section class="day" id="day5">
+    <div class="day-head">
+      <span class="day-badge">DAY 5</span>
+      <span class="day-date">8/02（日）</span>
+    </div>
+    <h2>海灘 → Aeon Mall Rycom → 入住那霸</h2>
+    <div class="staybanner">🏨 Hotel Monterey La Soeur Naha · 縣廳前站步行2分鐘 · 第1晚，共3晚</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">08:00</div><div class="tl-content">悠閒早餐</div></div>
+      <div class="tl-row"><div class="tl-time">09:00</div><div class="tl-content">🏖️ 海灘游泳/散步<span class="note">酒店（Seaside Hotel The Beach）離サンセットビーチ走路要42分鐘，不算可走路距離。二選一：①開車約10分鐘到サンセットビーチ；②用酒店自己旁邊的海堤/沙灘（1分鐘步行，入住時問櫃檯這片海灘叫什麼、能否游泳）</span></div></div>
+      <div class="tl-row"><div class="tl-time">11:00</div><div class="tl-content">退房</div></div>
+      <div class="tl-row"><div class="tl-time">12:00</div><div class="tl-content">🛍️ 永旺夢樂城 Aeon Mall Rycom（5小時只逛這家，午餐商場內解決）</div></div>
+      <div class="tl-row"><div class="tl-time">18:00</div><div class="tl-content">驅車前往那霸，Check-in Hotel Monterey La Soeur Naha</div></div>
+      <div class="tl-row"><div class="tl-time">19:30</div><div class="tl-content">🍣 <span class="tag">晚餐首選</span>すし むらかみ — 江戶前壽司+沖繩鮮魚</div></div>
+    </div>
+
+    <h3 class="subhead">晚餐備選</h3>
+    <ul class="plain">
+      <li><b>すし むらかみ</b>（首選）── 補上整趟行程還缺的「刺身/魚生」專門體驗</li>
+      <li><b>島唄ライブおばぁの家 海音（みおん）</b>（氣氛替代）── 每天3場沖繩民謠現場演出</li>
+    </ul>
+
+    <h3 class="subhead">聯絡資訊</h3>
+    <div class="contacts">
+      <div class="ccard"><div class="cname">北谷公園日落海灘 サンセットビーチ</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%8C%97%E8%B0%B7%E7%94%BA%E7%BE%8E%E6%B5%9C2%E4%B8%81%E7%9B%AE"><span class="ic">📍</span>沖縄県北谷町美浜2丁目</a>
+        <a href="tel:+81989368273"><span class="ic">☎</span>098-936-8273（北谷町役場）</a>
+      </div></div>
+      <div class="ccard"><div class="cname">永旺夢樂城 Aeon Mall Rycom</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%8C%97%E4%B8%AD%E5%9F%8E%E6%9D%91%E5%AD%97%E3%83%A9%E3%82%A4%E3%82%AB%E3%83%A01"><span class="ic">📍</span>〒901-2306 沖縄県北中城村字ライカム1</a>
+        <a href="tel:+81989300425"><span class="ic">☎</span>098-930-0425</a>
+        <a href="https://okinawarycom-aeonmall.com/"><span class="ic">🌐</span>okinawarycom-aeonmall.com</a>
+      </div></div>
+      <div class="ccard"><div class="cname">Hotel Monterey La Soeur Naha</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Monterey+La+Soeur+Naha"><span class="ic">📍</span>國際通沿線，縣廳前站步行2分鐘</a>
+        <a href="https://www.hotelmonterey.co.jp/lasoeur_naha/"><span class="ic">🌐</span>hotelmonterey.co.jp/lasoeur_naha</a>
+      </div></div>
+      <div class="ccard"><div class="cname">すし むらかみ</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E9%82%A3%E8%A6%87%E5%B8%82%E7%89%A7%E5%BF%972-13-20"><span class="ic">📍</span>沖縄県那覇市牧志2-13-20 第1ワコーマンション102</a>
+        <a href="tel:+81989431717"><span class="ic">☎</span>098-943-1717</a>
+      </div></div>
+      <div class="ccard"><div class="cname">島唄ライブおばぁの家 海音（みおん）</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E9%82%A3%E8%A6%87%E5%B8%82%E7%89%A7%E5%BF%971-3-58"><span class="ic">📍</span>沖縄県那覇市牧志1-3-58 B1F</a>
+        <a href="tel:+81988684388"><span class="ic">☎</span>098-868-4388</a>
+        <a href="https://naha-mion.com/"><span class="ic">🌐</span>naha-mion.com</a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 6 ============ -->
+  <section class="day" id="day6">
+    <div class="day-head">
+      <span class="day-badge">DAY 6</span>
+      <span class="day-date">8/03（一）</span>
+    </div>
+    <h2>南部一條線：第一聖地 → 控胃茶屋 → 漁市場 → 瀨長島</h2>
+    <div class="staybanner">🏨 Hotel Monterey La Soeur Naha（同一家）· 第2晚</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">10:00</div><div class="tl-content">齋場御嶽 &amp; 知念岬公園</div></div>
+      <div class="tl-row"><div class="tl-time">11:50</div><div class="tl-content">☕ 浜辺の茶屋——只點冰咖啡/海鹽蘇打，不點主食（控胃）<span class="note">座位/氣氛不理想見下方配選</span></div></div>
+      <div class="tl-row"><div class="tl-time">13:30</div><div class="tl-content"><span class="tag">美食</span>鮮滿漁市場（糸滿）— 生蠔、海膽、魚生大腹</div></div>
+      <div class="tl-row"><div class="tl-time">16:00</div><div class="tl-content">🌅 瀨長島 Umikaji Terrace——散步拍照看夕陽，不強求再吃</div></div>
+      <div class="tl-row"><div class="tl-time">19:30</div><div class="tl-content">返回那霸市區晚餐</div></div>
+    </div>
+
+    <div class="note-block">配選：浜辺の茶屋不理想時 → <b>イオンタウン南城大里</b>（距浜辺の茶屋8.0km/14分鐘，同在南城市）。町型小型購物中心，免費停車275位，規模比Aeon Rycom小很多，適合臨時走走的備案。</div>
+
+    <h3 class="subhead">聯絡資訊</h3>
+    <div class="contacts">
+      <div class="ccard"><div class="cname">齋場御嶽</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%8D%97%E5%9F%8E%E5%B8%82%E7%9F%A5%E5%BF%B5%E5%AD%97%E4%B9%85%E6%89%8B%E5%A0%85"><span class="ic">📍</span>沖縄県南城市知念字久手堅</a>
+        <a href="tel:+81989491899"><span class="ic">☎</span>098-949-1899</a>
+        <a href="https://okinawa-nanjo.jp/sefa/"><span class="ic">🌐</span>okinawa-nanjo.jp/sefa</a>
+      </div></div>
+      <div class="ccard"><div class="cname">知念岬公園</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E7%9F%A5%E5%BF%B5%E5%B2%AC%E5%85%AC%E5%9C%92+%E5%8D%97%E5%9F%8E%E5%B8%82"><span class="ic">📍</span>〒901-1511 沖縄県南城市知念久手堅</a>
+        <a href="tel:+81989175351"><span class="ic">☎</span>098-917-5351（南城市役所）</a>
+      </div></div>
+      <div class="ccard"><div class="cname">浜辺の茶屋</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%8D%97%E5%9F%8E%E5%B8%82%E7%8E%89%E5%9F%8E2-1"><span class="ic">📍</span>沖縄県南城市玉城字玉城2-1</a>
+        <a href="tel:+81989482073"><span class="ic">☎</span>098-948-2073</a>
+      </div></div>
+      <div class="ccard"><div class="cname">イオンタウン南城大里（配選）</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E5%8D%97%E5%9F%8E%E5%B8%82%E5%A4%A7%E9%87%8C97-2"><span class="ic">📍</span>沖縄県南城市大里字高平高宮城原97-2</a>
+        <a href="https://www.aeontown.co.jp/nanjo_ozato/"><span class="ic">🌐</span>aeontown.co.jp/nanjo_ozato</a>
+      </div></div>
+      <div class="ccard"><div class="cname">糸満お魚センター</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E7%B3%B8%E6%BA%A1%E5%B8%82%E8%A5%BF%E5%B4%8E%E7%94%BA4-19"><span class="ic">📍</span>〒901-0305 沖縄県糸満市西崎町4-19</a>
+        <a href="tel:+81989922803"><span class="ic">☎</span>098-992-2803</a>
+      </div></div>
+      <div class="ccard"><div class="cname">瀬長島ウミカジテラス</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E8%B1%8A%E8%A6%8B%E5%9F%8E%E5%B8%82%E7%80%AC%E9%95%B7174-6"><span class="ic">📍</span>〒901-0233 沖縄県豊見城市瀬長174-6</a>
+        <a href="tel:+81989851174"><span class="ic">☎</span>098-851-7446</a>
+        <a href="https://www.umikajiterrace.com/"><span class="ic">🌐</span>umikajiterrace.com</a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 7 ============ -->
+  <section class="day" id="day7">
+    <div class="day-head">
+      <span class="day-badge">DAY 7</span>
+      <span class="day-date">8/04（二）</span>
+    </div>
+    <h2>懸崖神社 → 牧志市場 → Parco City → 國際通 → 還車 → 畢業涮涮鍋</h2>
+    <div class="staybanner">🏨 Hotel Monterey La Soeur Naha（同一家）· 第3晚，最後一晚</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">09:00</div><div class="tl-content">⛩️ 波上宮</div></div>
+      <div class="tl-row"><div class="tl-time">10:15</div><div class="tl-content"><span class="tag">美食</span>第一牧志公設市場</div></div>
+      <div class="tl-row"><div class="tl-time">12:15</div><div class="tl-content">🛍️ SAN-A PARCO CITY</div></div>
+      <div class="tl-row"><div class="tl-time">16:00</div><div class="tl-content">🛍️ 國際通最後衝刺</div></div>
+      <div class="tl-row"><div class="tl-time">17:00</div><div class="tl-content">加滿油還車</div></div>
+      <div class="tl-row"><div class="tl-time">17:30</div><div class="tl-content">🚇 單軌電車：赤嶺站→縣廳前站（約5站，含步行/等車抓30分鐘），感應信用卡進出閘</div></div>
+      <div class="tl-row"><div class="tl-time">18:30</div><div class="tl-content">🍲 <span class="tag">畢業壓軸</span>砂浜 島黑豬涮涮鍋（約¥7,000/人）<span class="note">建議提前1-2週預約</span></div></div>
+    </div>
+
+    <div class="note-block safe">還車後改搭單軌電車回縣廳前站（不打車），約5站，車資單程¥290-370/人，一樣用感應信用卡進出閘。到站後酒店跟晚餐地點砂浜都在國際通/牧志一帶，走路可達。還車後兩人都可以放心喝酒慶功，不用再開車。</div>
+
+    <h3 class="subhead">聯絡資訊</h3>
+    <div class="contacts">
+      <div class="ccard"><div class="cname">波上宮</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E9%82%A3%E8%A6%87%E5%B8%82%E8%8B%A5%E7%8B%AD1-25-11"><span class="ic">📍</span>沖縄県那覇市若狭1-25-11</a>
+        <a href="tel:+81988683697"><span class="ic">☎</span>098-868-3697</a>
+        <a href="http://naminouegu.jp/"><span class="ic">🌐</span>naminouegu.jp</a>
+      </div></div>
+      <div class="ccard"><div class="cname">第一牧志公設市場</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E9%82%A3%E8%A6%87%E5%B8%82%E6%9D%BE%E5%B0%BE2-10-1"><span class="ic">📍</span>沖縄県那覇市松尾2-10-1</a>
+        <a href="tel:+81988676560"><span class="ic">☎</span>098-867-6560</a>
+        <a href="https://www.makishi-public-market.jp/"><span class="ic">🌐</span>makishi-public-market.jp</a>
+      </div></div>
+      <div class="ccard"><div class="cname">SAN-A PARCO CITY</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E6%B5%A6%E6%B7%BB%E5%B8%82%E8%A5%BF%E6%B4%B23-1-1"><span class="ic">📍</span>〒901-2507 沖縄県浦添市西洲3-1-1</a>
+        <a href="tel:+81989871120"><span class="ic">☎</span>098-871-1120</a>
+        <a href="https://www.parcocity.jp/"><span class="ic">🌐</span>parcocity.jp</a>
+      </div></div>
+      <div class="ccard"><div class="cname">砂浜 島黒豚しゃぶ Sunahama</div><div class="clinks">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%9C%8C%E9%82%A3%E8%A6%87%E5%B8%82%E7%89%A7%E5%BF%973-12-8"><span class="ic">📍</span>沖縄県那覇市牧志3-12-8 フィットビル2F</a>
+        <a href="tel:+81505493615"><span class="ic">☎</span>050-5493-6156</a>
+        <a href="https://sunahama.owst.jp/"><span class="ic">🌐</span>sunahama.owst.jp</a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 8 ============ -->
+  <section class="day" id="day8">
+    <div class="day-head">
+      <span class="day-badge">DAY 8</span>
+      <span class="day-date">8/05（三）</span>
+    </div>
+    <h2>悠閒退房 → 直奔國際線 → 返港</h2>
+    <div class="staybanner">車已於Day7晚上還了，今天無還車、無國內線購物</div>
+
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-time">09:15</div><div class="tl-content">酒店退房，計程車直達機場國際線航廈（實測5.5km/約12分鐘，車資約¥1,800-2,000）</div></div>
+      <div class="tl-row"><div class="tl-time">09:35</div><div class="tl-content">抵達機場，直接國際線報到、託運、過安檢</div></div>
+      <div class="tl-row"><div class="tl-time">10:30</div><div class="tl-content">登機口旁休息</div></div>
+      <div class="tl-row"><div class="tl-time">11:35</div><div class="tl-content">UO0843起飛</div></div>
+      <div class="tl-row"><div class="tl-time">13:20</div><div class="tl-content">抵達HKG</div></div>
+    </div>
+
+    <div class="note-block">車已於Day7晚上17:00-17:30還掉，今天完全不用管加油、還車、接駁車。旺季國際線排隊會比平常久，預留足夠緩衝。</div>
+  </section>
+
+  <p class="foot">沖繩8天7夜自駕行程 · 2026/7/29–8/5 · 完整定案版</p>
+</div>
+
+</div><!-- /real-content -->
+
+<script>
+// ---- 簡易密碼閘門 + 到期停止顯示 ----
+// 注意：這只是防隨手誤點/外流分享的輕量提示，不是真正的安全機制，
+// 任何人檢視原始碼都能看到密碼跟內容，請勿用來保護敏感資訊。
+var GATE_PASSWORD = "Zanpa0729";
+var EXPIRE_DATE = new Date("2026-08-06T00:00:00+09:00");
+
+function checkGatePw(){
+  var input = document.getElementById('gate-pw').value;
+  var err = document.getElementById('gate-err');
+  if (input === GATE_PASSWORD) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('real-content').style.display = 'block';
+  } else {
+    err.textContent = '密碼不正確，請再試一次';
+  }
+}
+document.getElementById('gate-pw').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') checkGatePw();
+});
+
+if (new Date() > EXPIRE_DATE) {
+  document.getElementById('gate').innerHTML =
+    '<div class="gate-box"><h2>✈️ 行程已結束</h2><p>這趟旅程已經結束，頁面不再開放查看。</p></div>';
+}
+
+// iOS「檔案」App的Quick Look預覽不是真的瀏覽器分頁，
+// 點擊 #day1 這類錨點連結時系統會誤判成「要離開去開新東西」而跳出確認視窗。
+// 改用JS直接捲動到對應區塊，完全不觸發網址列跳轉，避開這個系統行為。
+document.querySelectorAll('.daynav a[href^="#"]').forEach(function(link){
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    var id = link.getAttribute('href').slice(1);
+    var target = document.getElementById(id);
+    if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+</script>
+</body>
+</html>
