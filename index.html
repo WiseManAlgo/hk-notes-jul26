@@ -132,7 +132,22 @@ body{
   background:var(--surface); border:1px solid var(--line); border-radius:12px;
   padding:11px 14px; box-shadow:var(--shadow);
 }
-.ccard .cname{font-weight:700; font-size:14px; margin-bottom:5px;}
+.ccard .cname{
+  font-weight:700; font-size:14px; margin-bottom:5px;
+  display:flex; align-items:flex-start; gap:8px; flex-wrap:wrap;
+}
+.copybtn{
+  flex-shrink:0; cursor:pointer; font-family:inherit;
+  font-size:11.5px; font-weight:600; line-height:1;
+  padding:4px 9px; border-radius:999px;
+  border:1px solid var(--line); background:var(--surface-2);
+  color:var(--ink-soft); white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;
+}
+.copybtn:active{transform:scale(0.94);}
+.copybtn.done{
+  background:var(--accent-2); border-color:var(--accent-2); color:#fff;
+}
 .clinks{display:flex; flex-direction:column; gap:5px;}
 .clinks a, .clinks span.static{
   color:var(--ink-soft); text-decoration:none; font-size:13px;
@@ -746,6 +761,65 @@ document.querySelectorAll('.daynav a[href^="#"]').forEach(function(link){
     var target = document.getElementById(id);
     if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
   });
+});
+
+// ---- 每張聯絡卡加「複製店名」按鈕 ----
+// 複製出來的是乾淨店名，會自動去掉「（午餐）」「（Day2取車）」這類行程備註，
+// 直接貼到 Google Maps 或 Tabelog 就能查，不用手動刪字。
+function cleanName(raw){
+  var s = raw.trim();
+  // 去掉含行程用語的括號註記（全形/半形括號都處理）
+  var kw = '午餐|晚餐|宵夜|早餐|備選|配選|取車|還車|拍照|備案|首選|方案|取代|已取消|現行';
+  s = s.replace(new RegExp('[（(][^）)]*(?:' + kw + ')[^）)]*[）)]', 'g'), '');
+  // 去掉結尾殘留的行程用語
+  s = s.replace(new RegExp('(?:' + kw + ')+$'), '');
+  return s.trim();
+}
+
+function copyText(text, btn){
+  function ok(){
+    var old = btn.textContent;
+    btn.textContent = '✓ 已複製';
+    btn.classList.add('done');
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1400);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(ok).catch(function(){ fallback(text, ok); });
+  } else {
+    fallback(text, ok);
+  }
+}
+
+// file:// 開啟時沒有 clipboard API，用舊方法墊底
+function fallback(text, ok){
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly','');
+  ta.style.cssText = 'position:absolute;left:-9999px;top:0;';
+  document.body.appendChild(ta);
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  try { document.execCommand('copy'); ok(); } catch(e) { alert('請長按選取複製：\n' + text); }
+  document.body.removeChild(ta);
+}
+
+document.querySelectorAll('.ccard .cname').forEach(function(el){
+  // 說明用的卡片（沒有地址/電話連結）不需要複製按鈕
+  var card = el.parentElement;
+  if(!card || !card.querySelector('.clinks a')) return;
+  var name = cleanName(el.textContent);
+  if(!name) return;
+  var btn = document.createElement('button');
+  btn.className = 'copybtn';
+  btn.type = 'button';
+  btn.textContent = '複製店名';
+  btn.setAttribute('aria-label', '複製「' + name + '」');
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    copyText(name, btn);
+  });
+  el.appendChild(btn);
 });
 </script>
 </body>
