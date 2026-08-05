@@ -1,0 +1,234 @@
+<title>沖繩8天7夜消費報告</title>
+<style>
+:root{
+  --ground:#FAF9F5; --surface:#FFFFFF; --sunk:#F1EFE8;
+  --ink:#1A2028; --ink-2:#5A6470; --ink-3:#8A929C;
+  --rule:#E2DFD6; --rule-2:#CFCBBF;
+  --indigo:#1A5A73; --indigo-soft:#DCE8ED;
+  --ochre:#B8813A; --neg:#A8443C;
+  --shadow:0 1px 2px rgba(26,32,40,.04);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#12161B; --surface:#1A1F26; --sunk:#20262E;
+    --ink:#E9E7E1; --ink-2:#A0A8B2; --ink-3:#727A85;
+    --rule:#2A313A; --rule-2:#3A424D;
+    --indigo:#6BB5D1; --indigo-soft:#1E3A47;
+    --ochre:#D9A85F; --neg:#D97F76;
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#12161B; --surface:#1A1F26; --sunk:#20262E;
+  --ink:#E9E7E1; --ink-2:#A0A8B2; --ink-3:#727A85;
+  --rule:#2A313A; --rule-2:#3A424D;
+  --indigo:#6BB5D1; --indigo-soft:#1E3A47;
+  --ochre:#D9A85F; --neg:#D97F76;
+  --shadow:0 1px 2px rgba(0,0,0,.3);
+}
+:root[data-theme="light"]{
+  --ground:#FAF9F5; --surface:#FFFFFF; --sunk:#F1EFE8;
+  --ink:#1A2028; --ink-2:#5A6470; --ink-3:#8A929C;
+  --rule:#E2DFD6; --rule-2:#CFCBBF;
+  --indigo:#1A5A73; --indigo-soft:#DCE8ED;
+  --ochre:#B8813A; --neg:#A8443C;
+  --shadow:0 1px 2px rgba(26,32,40,.04);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+.wrap{max-width:860px; margin:0 auto; padding:0 24px 72px;}
+.num{font-family:Georgia,"Times New Roman",serif; font-variant-numeric:tabular-nums lining-nums;}
+
+header{padding:56px 0 28px; border-bottom:2px solid var(--ink);}
+.eyebrow{
+  font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--indigo); font-weight:500; margin:0 0 14px;
+}
+h1{font-size:clamp(28px,5.5vw,40px); font-weight:500; margin:0 0 10px; letter-spacing:-.02em; text-wrap:balance;}
+.sub{margin:0; color:var(--ink-2); font-size:14.5px;}
+
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:var(--rule); margin:0 0 48px; border-bottom:1px solid var(--rule);}
+.stat{background:var(--ground); padding:26px 4px 24px;}
+.stat .k{font-size:12px; color:var(--ink-3); margin:0 0 8px; letter-spacing:.04em;}
+.stat .v{font-size:34px; line-height:1; font-weight:400;}
+.stat .v small{font-size:16px; color:var(--ink-3); margin-right:2px;}
+.stat .n{font-size:12px; color:var(--ink-3); margin:8px 0 0;}
+
+section{margin:0 0 52px;}
+h2{
+  font-size:13px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-2); margin:0 0 4px; padding-bottom:10px; border-bottom:1px solid var(--rule-2);
+}
+.hint{font-size:13px; color:var(--ink-3); margin:14px 0 22px;}
+
+.bars{display:flex; flex-direction:column; gap:3px;}
+.bar{display:grid; grid-template-columns:88px 1fr auto; align-items:center; gap:14px; padding:7px 0;}
+.bar .lab{font-size:14px; text-align:right; color:var(--ink);}
+.bar .track{height:26px; background:var(--sunk); border-radius:2px; position:relative; overflow:hidden;}
+.bar .fill{position:absolute; inset:0 auto 0 0; background:var(--indigo); border-radius:2px;}
+.bar.is-neg .fill{background:var(--neg);}
+.bar.is-alt .fill{background:var(--ochre);}
+.bar .amt{font-size:15px; min-width:104px; text-align:right;}
+.bar .amt em{font-style:normal; color:var(--ink-3); font-size:12.5px; margin-left:7px;}
+.bar .cnt{font-size:11.5px; color:var(--ink-3);}
+
+.days{display:grid; grid-template-columns:repeat(8,1fr); gap:8px; align-items:end; height:180px; margin:0 0 10px;}
+.day{display:flex; flex-direction:column; justify-content:flex-end; height:100%; gap:7px;}
+.day .col{background:var(--indigo); border-radius:2px 2px 0 0; min-height:3px;}
+.day.peak .col{background:var(--ochre);}
+.day .amt{font-size:12px; text-align:center; color:var(--ink); white-space:nowrap;}
+.dlabels{display:grid; grid-template-columns:repeat(8,1fr); gap:8px; padding-top:9px; border-top:1px solid var(--rule-2);}
+.dlabels span{font-size:12px; text-align:center; color:var(--ink-2);}
+
+table{width:100%; border-collapse:collapse; font-size:14px;}
+.tw{overflow-x:auto;}
+th{
+  font-size:11.5px; font-weight:500; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-3); text-align:left; padding:0 10px 9px 0; border-bottom:1px solid var(--rule-2); white-space:nowrap;
+}
+td{padding:11px 10px 11px 0; border-bottom:1px solid var(--rule); vertical-align:top;}
+td.r,th.r{text-align:right; padding-right:0;}
+.tag{
+  display:inline-block; font-size:11.5px; padding:2px 8px; border-radius:3px;
+  background:var(--indigo-soft); color:var(--indigo); white-space:nowrap;
+}
+.date{color:var(--ink-3); font-size:13px; white-space:nowrap;}
+
+.split{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:18px 20px; box-shadow:var(--shadow);}
+.card .k{font-size:12px; color:var(--ink-3); margin:0 0 6px;}
+.card .v{font-size:22px; margin:0 0 3px;}
+.card .n{font-size:12.5px; color:var(--ink-3); margin:0;}
+
+.notes{display:flex; flex-direction:column; gap:16px;}
+.note{padding-left:16px; border-left:2px solid var(--indigo);}
+.note b{font-weight:500; display:block; margin-bottom:2px;}
+.note span{color:var(--ink-2); font-size:14px;}
+
+footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--rule); font-size:12.5px; color:var(--ink-3);}
+footer p{margin:0 0 6px;}
+
+@media(max-width:620px){
+  .bar{grid-template-columns:74px 1fr; gap:10px;}
+  .bar .amt{grid-column:2; text-align:left; min-width:0; margin-top:-4px;}
+  .days{height:140px; gap:4px;}
+  .day .amt{font-size:10px;}
+  .dlabels{gap:4px;}
+  .dlabels span{font-size:10.5px;}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Okinawa · 2026</p>
+  <h1>沖繩自駕 8天7夜　消費報告</h1>
+  <p class="sub">2026年7月29日 – 8月5日　·　2人同行　·　全部金額已換算為港幣</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><p class="k">總花費</p><p class="v num"><small>HK$</small>21,463</p><p class="n">82筆消費紀錄</p></div>
+  <div class="stat"><p class="k">每日平均</p><p class="v num"><small>HK$</small>2,683</p><p class="n">8天</p></div>
+  <div class="stat"><p class="k">每人平均</p><p class="v num"><small>HK$</small>10,732</p><p class="n">2人</p></div>
+  <div class="stat"><p class="k">每人每日</p><p class="v num"><small>HK$</small>1,342</p><p class="n">含機票住宿</p></div>
+</div>
+
+<section>
+  <h2>支出分類</h2>
+  <p class="hint">機票、餐飲、住宿三項合計 HK$12,941，佔總花費 60.3%。</p>
+  <div class="bars">
+    <div class="bar"><span class="lab">機票</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="amt num">4,654<em>21.7%</em></span></div>
+    <div class="bar"><span class="lab">餐飲</span><div class="track"><div class="fill" style="width:98.3%"></div></div><span class="amt num">4,577<em>21.3%</em></span></div>
+    <div class="bar"><span class="lab">住宿</span><div class="track"><div class="fill" style="width:79.7%"></div></div><span class="amt num">3,710<em>17.3%</em></span></div>
+    <div class="bar"><span class="lab">購物・其他</span><div class="track"><div class="fill" style="width:64.8%"></div></div><span class="amt num">3,014<em>14.0%</em></span></div>
+    <div class="bar"><span class="lab">購物・紀念品</span><div class="track"><div class="fill" style="width:46.5%"></div></div><span class="amt num">2,163<em>10.1%</em></span></div>
+    <div class="bar"><span class="lab">交通</span><div class="track"><div class="fill" style="width:34.2%"></div></div><span class="amt num">1,594<em>7.4%</em></span></div>
+    <div class="bar"><span class="lab">購物・食物</span><div class="track"><div class="fill" style="width:20.0%"></div></div><span class="amt num">930<em>4.3%</em></span></div>
+    <div class="bar"><span class="lab">購物・藥物</span><div class="track"><div class="fill" style="width:12.9%"></div></div><span class="amt num">601<em>2.8%</em></span></div>
+    <div class="bar"><span class="lab">娛樂</span><div class="track"><div class="fill" style="width:6.2%"></div></div><span class="amt num">288<em>1.3%</em></span></div>
+    <div class="bar is-neg"><span class="lab">免稅退稅</span><div class="track"><div class="fill" style="width:1.5%"></div></div><span class="amt num">−68<em>退回</em></span></div>
+  </div>
+</section>
+
+<section>
+  <h2>購物拆開看，其實是最大開銷</h2>
+  <p class="hint">四類購物合計 HK$6,708，扣除退稅後淨額 HK$6,640，比單項最高的機票還多。</p>
+  <div class="split">
+    <div class="card"><p class="k">購物合計（4類，36筆）</p><p class="v num">HK$6,708</p><p class="n">佔總花費 31.3%</p></div>
+    <div class="card"><p class="k">機票（最大單一類別）</p><p class="v num">HK$4,654</p><p class="n">佔總花費 21.7%</p></div>
+    <div class="card"><p class="k">餐飲（28筆，最多筆數）</p><p class="v num">HK$4,577</p><p class="n">平均每筆 HK$163</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>每日花費</h2>
+  <p class="hint">8月2日為最高峰，佔全程 28.2%——當天逛 Aeon Mall Rycom 血拼，加上三晚酒店一次付清。</p>
+  <div class="days">
+    <div class="day"><span class="amt num">3,409</span><div class="col" style="height:56%"></div></div>
+    <div class="day"><span class="amt num">2,342</span><div class="col" style="height:39%"></div></div>
+    <div class="day"><span class="amt num">1,766</span><div class="col" style="height:29%"></div></div>
+    <div class="day"><span class="amt num">1,003</span><div class="col" style="height:17%"></div></div>
+    <div class="day peak"><span class="amt num">6,043</span><div class="col" style="height:100%"></div></div>
+    <div class="day"><span class="amt num">1,897</span><div class="col" style="height:31%"></div></div>
+    <div class="day"><span class="amt num">2,639</span><div class="col" style="height:44%"></div></div>
+    <div class="day"><span class="amt num">2,364</span><div class="col" style="height:39%"></div></div>
+  </div>
+  <div class="dlabels">
+    <span>7/29</span><span>7/30</span><span>7/31</span><span>8/1</span>
+    <span>8/2</span><span>8/3</span><span>8/4</span><span>8/5</span>
+  </div>
+</section>
+
+<section>
+  <h2>最大12筆支出</h2>
+  <p class="hint">前12筆合計 HK$14,265，佔總花費三分之二。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>日期</th><th>項目</th><th>分類</th><th class="r">港幣</th></tr></thead>
+    <tbody>
+      <tr><td class="date">7/29</td><td>HK Express UO0824　香港→那霸</td><td><span class="tag">機票</span></td><td class="r num">2,380</td></tr>
+      <tr><td class="date">8/5</td><td>HK Express UO0843　那霸→香港</td><td><span class="tag">機票</span></td><td class="r num">2,274</td></tr>
+      <tr><td class="date">8/2</td><td>mont-bell　沖縄ライカム店</td><td><span class="tag">購物</span></td><td class="r num">2,104</td></tr>
+      <tr><td class="date">8/2</td><td>Hotel Monterey La Soeur Naha　3晚</td><td><span class="tag">住宿</span></td><td class="r num">1,932</td></tr>
+      <tr><td class="date">8/2</td><td>サンリオ　AEONライカム店（免稅）</td><td><span class="tag">紀念品</span></td><td class="r num">1,025</td></tr>
+      <tr><td class="date">7/30</td><td>Akamine Rent a Car　6天租車</td><td><span class="tag">交通</span></td><td class="r num">1,013</td></tr>
+      <tr><td class="date">7/31</td><td>Seaside Hotel The Beach　2晚</td><td><span class="tag">住宿</span></td><td class="r num">919</td></tr>
+      <tr><td class="date">8/4</td><td>niko and...　浦添パルコシティ</td><td><span class="tag">購物</span></td><td class="r num">804</td></tr>
+      <tr><td class="date">8/2</td><td>美山　黑毛和牛放題×2</td><td><span class="tag">餐飲</span></td><td class="r num">712</td></tr>
+      <tr><td class="date">8/3</td><td>第一牧志公設市場　海鮮午餐</td><td><span class="tag">餐飲</span></td><td class="r num">653</td></tr>
+      <tr><td class="date">8/1</td><td>ISLAND BEEF　石垣牛＆和牛</td><td><span class="tag">餐飲</span></td><td class="r num">563</td></tr>
+      <tr><td class="date">7/29</td><td>大和ROYNET酒店　1晚</td><td><span class="tag">住宿</span></td><td class="r num">486</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>幾個觀察</h2>
+  <div class="notes">
+    <div class="note"><b>8月2日一天花掉 HK$6,043</b><span>是第二高日子的 1.8 倍。mont-bell 戶外服飾 2,104 ＋ 三麗鷗 1,025 ＋ 酒店三晚 1,932，光這三筆就佔當日 84%。</span></div>
+    <div class="note"><b>自駕成本比想像中低</b><span>交通類 1,594 元裡，租車預付佔 1,013；在地過路費、油錢、停車費全部加起來只有 581 元。</span></div>
+    <div class="note"><b>最省的一天是 8月1日，HK$1,003</b><span>殘波岬、BANTA CAFE、美國村看日落——景點多為免費，購物也克制。</span></div>
+    <div class="note"><b>餐飲 28 筆平均每筆 HK$163</b><span>最貴三餐：美山和牛放題 712、牧志市場海鮮 653、ISLAND BEEF 石垣牛 563。</span></div>
+    <div class="note"><b>娛樂只花了 HK$288</b><span>名護鳳梨園入場 240 ＋ 租腳踏車 48。沖繩的海景、岬角、林道大多不用門票。</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>付款幣別來源</h2>
+  <div class="split">
+    <div class="card"><p class="k">日圓　現場消費</p><p class="v num">HK$12,086</p><p class="n">¥251,792 × 0.048　·　56.3%</p></div>
+    <div class="card"><p class="k">人民幣　酒店・租車</p><p class="v num">HK$2,419</p><p class="n">¥2,812.49 × 0.86　·　11.3%</p></div>
+    <div class="card"><p class="k">港幣　機票・2間酒店</p><p class="v num">HK$6,959</p><p class="n">收據實付金額　·　32.4%</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>匯率：日圓 0.048、人民幣 0.86。機票與 Phoenix Park Hotel、Hotel Monterey 採用收據上的實付港幣金額，未經匯率換算。</p>
+  <p>資料來源：82 筆消費紀錄，含機票訂單、4 間酒店訂房收據、租車憑證及當地實體收據。</p>
+</footer>
+</div>
